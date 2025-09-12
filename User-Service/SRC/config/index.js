@@ -1,0 +1,1 @@
+export {CONFIG} from "./server-config.js"

@@ -3,6 +3,7 @@ import {CONFIG} from "./config/index.js";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import apiRoutes from "./Routes/index.js";
+import {RabitQueueService} from "../SRC/services/index.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose
         console.log("Connected To Mongo Successfully");
         app.listen(CONFIG.PORT , ()=>{
             console.log(`Server Is Running On Port ${CONFIG.PORT}`);
+            RabitQueueService.connectRabitMqWithRetry();
         })
     })
     .catch((err) => {

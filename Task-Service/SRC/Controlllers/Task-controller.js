@@ -1,6 +1,8 @@
 import { TaskService } from "../services/index.js";
 import { SuccessResponse, ErrorResponse } from "../Utils/index.js";
 import statusCodes from "http-status-codes";
+import {RabitQueueService} from "../services/index.js";
+import { get } from "mongoose";
 
 async function taskCreation(req,res) 
 {
@@ -11,6 +13,14 @@ async function taskCreation(req,res)
             decreption:req.body.decreption,
             TaskId:req.body.TaskId
         });
+        const message = {
+            title:task.title,
+            decreption:task.decreption,
+            TaskId:task.TaskId
+        }
+        const chanel= getChannel();
+        chanel.sendToQueue("task-created",Buffer.from(JSON.stringify(message)));
+        
         SuccessResponse.data = task;
         return res.status(statusCodes.CREATED).json(SuccessResponse);
     } 

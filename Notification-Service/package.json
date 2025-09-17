@@ -1,11 +1,11 @@
 {
-  "name": "task-service",
+  "name": "notification-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npx nodemon ./SRC/index.js  "
+    "dev": "npx nodemon index.js  "
   },
   "keywords": [],
   "author": "",
